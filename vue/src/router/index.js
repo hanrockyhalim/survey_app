@@ -1,13 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Dashboard from '../views/Dashboard.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
+import DefaultLayout from "../components/DefaultLayout.vue";
+import Dashboard from "../views/Dashboard.vue";
+import Surveys from "../views/Surveys.vue";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 
+// create routes
 const routes = [
   {
     path: "/",
-    name: "Dashboard",
-    component: Dashboard,
+    redirect: "/dashboard",
+    component: DefaultLayout,
+    children: [
+      { path: "/dashboard", name: "Dashboard", component: Dashboard },
+      { path: "/surveys", name: "Surveys", component: Surveys },
+    ],
   },
   {
     path: "/login",
@@ -21,9 +28,11 @@ const routes = [
   },
 ];
 
+// Use createRouter and pass in the routes
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
 
+// Use it on main.js
 export default router;
